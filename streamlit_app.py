@@ -1,9 +1,9 @@
-    import streamlit as st
-    import torch
-    from transformers import AutoTokenizer, AutoModelForCausalLM
-    from PIL import Image
-    from google import genai
-    import json, re
+import streamlit as st
+import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
+from PIL import Image
+from google import genai
+import json, re
 
 torch.random.manual_seed(0)
 
