@@ -18,7 +18,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 3. If the question is a valid math/reasoning/logical problem:
    - Translate it into English.
    - Solve it step-by-step using clear reasoning.
-   - Provide the final answer wrapped in \\boxed{}.
+   - Provide the final answer wrapped in \\boxed{{}}.
 4. If it is NOT a valid math question, return this JSON:
 {
   "status": "error",
@@ -28,7 +28,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 {
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \\boxed{}>",
+  "solution": "<Step-by-step solution with answer in \\boxed{{}}>",
   "translated_question": "<MathQuestion in English>"
 }
 """
@@ -51,7 +51,7 @@ You are a math tutor. Follow these instructions:
 {{
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \\boxed{}>",
+  "solution": "<Step-by-step solution with answer in \\boxed{{}}>",
   "translated_question": "<MathQuestion in English>"
 }}
 
