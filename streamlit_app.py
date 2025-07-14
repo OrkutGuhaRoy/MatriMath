@@ -18,7 +18,8 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 3. If the question is a valid math/reasoning/logical problem:
    - Translate it into English.
    - Solve it step-by-step using clear reasoning.
-   - Provide the final answer wrapped in \boxed{}.
+   - Put the final answer inside \boxed{{}}.
+.
 4. If it is NOT a valid math question, return this JSON:
 {
   "status": "error",
@@ -28,7 +29,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 {
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \\boxed{}>",
+  "solution": "<Step-by-step solution with answer in \boxed{{}}>",
   "translated_question": "<MathQuestion in English>"
 }
 """
@@ -44,14 +45,15 @@ You are a math tutor. Follow these instructions:
 2. If it's a math/reasoning/logical question:
    - Translate to English.
    - Solve it step-by-step clearly.
-   - Put the final answer inside \boxed{}.
+   - Put the final answer inside \boxed{{}}.
+.
 3. If not valid, respond:
 {{"status": "error", "reason": "Not a math problem."}}
 4. If valid, respond:
 {{
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \\boxed{}>",
+  "solution": "<Step-by-step solution with answer in \boxed{{}}>",
   "translated_question": "<MathQuestion in English>"
 }}
 
@@ -59,7 +61,7 @@ Input:
 {input_data}
 """
         response = client.models.generate_content(
-            model="gemini-2.5-flash", contents=prompt
+            model="gemini-2.5-pro", contents=prompt
         )
         return response
 
