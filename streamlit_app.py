@@ -1,9 +1,9 @@
-import streamlit as st
-import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
-from PIL import Image
-from google import genai
-import json, re
+    import streamlit as st
+    import torch
+    from transformers import AutoTokenizer, AutoModelForCausalLM
+    from PIL import Image
+    from google import genai
+    import json, re
 
 torch.random.manual_seed(0)
 
@@ -86,24 +86,32 @@ def load_phi():
 # ------------------------------
 # Run Phi Model
 # ------------------------------
-def run_phi(prompt):
+def run_deepseek(prompt):
     tokenizer, model = load_phi()
     messages = [{"role": "user", "content": prompt}]
-    inputs = tokenizer.apply_chat_template(
+    
+    input_text = tokenizer.apply_chat_template(
         messages,
         add_generation_prompt=True,
-        return_dict=True,
-        return_tensors="pt",
+        return_dict=False,  # 👈 return plain string for manual tokenization
     )
+    
+    inputs = tokenizer(
+        input_text,
+        return_tensors="pt"
+    ).to(model.device)  # ✅ this is now a tensor dictionary on correct device
+
     outputs = model.generate(
-        **inputs.to(model.device),
+        **inputs,
         max_new_tokens=1024,
         temperature=0.6,
         top_p=0.95,
         do_sample=True,
     )
+
     decoded = tokenizer.batch_decode(outputs[:, inputs["input_ids"].shape[-1]:])
     return decoded[0]
+
 
 # ------------------------------
 # UI
@@ -134,8 +142,8 @@ if st.button("🚀 Solve It"):
             prompt_for_phi = response_json["formatted_prompt"]
             original_lang = response_json["original_language"]
 
-            with st.spinner("🧠 Solving with Phi-4-mini..."):
-                answer = run_phi(prompt_for_phi)
+            with st.spinner("🧠 Solving with deepseek-math-7b-base..."):
+                answer = run_deepseek(prompt_for_phi)
 
             with st.spinner("🌐 Translating back to original language..."):
                 back_prompt = f"Translate this into {original_lang} preserving clarity: \n{answer}"
