@@ -19,6 +19,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
    - Translate it into English.
    - Solve it step-by-step using clear reasoning.
    - Clearly mark the final answer as: Final Answer: <your answer>
+Only respond in valid JSON as instructed. Do NOT add any extra explanation or markdown.
 4. If it is NOT a valid math question, return this JSON:
 {
   "status": "error",
@@ -54,6 +55,7 @@ You are a math tutor. Follow these instructions:
   "solution": "<Step-by-step solution with answer in \\boxed{{}}>",
   "translated_question": "<MathQuestion in English>"
 }}
+Only respond in valid JSON as instructed. Do NOT add any extra explanation or markdown.
 
 Input:
 {input_data}
