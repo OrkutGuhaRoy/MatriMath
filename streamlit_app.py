@@ -18,7 +18,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 3. If the question is a valid math/reasoning/logical problem:
    - Translate it into English.
    - Solve it step-by-step using clear reasoning.
-   - Provide the final answer wrapped in \\boxed{{}}.
+   - Clearly mark the final answer as: Final Answer: <your answer>
 4. If it is NOT a valid math question, return this JSON:
 {
   "status": "error",
@@ -44,7 +44,7 @@ You are a math tutor. Follow these instructions:
 2. If it's a math/reasoning/logical question:
    - Translate to English.
    - Solve it step-by-step clearly.
-   - Put the final answer inside \boxed{}.
+   -Clearly mark the final answer as: Final Answer: <your answer>
 3. If not valid, respond:
 {{"status": "error", "reason": "Not a math problem."}}
 4. If valid, respond:
