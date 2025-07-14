@@ -56,7 +56,7 @@ Just like your mother patiently teaches you in your mother tongue, MatriMath hel
 ## 🚀 Run Locally
 
 ```bash
-git clone https://github.com/your-username/matrimath.git
+git clone https://github.com/OrkutGuhaRo/MatriMath.git
 cd matrimath
 
 # Install dependencies
