@@ -41,7 +41,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
         return response
 
     elif input_type == "text":
-        prompt = f"""
+        prompt = """
 You are a math tutor. Follow these instructions:
 1. Detect the language of this input.
 2. If it's a math/reasoning/logical question:
