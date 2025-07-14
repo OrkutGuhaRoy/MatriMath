@@ -50,7 +50,7 @@ Great question! Here's what MatriMath offers that most commonly used LLMs alone 
 | ------------------------------------------------------------- | ------------------------ | --------------------------------- |
 | Accepts questions in regional languages                       | ✅                        | ✅                                 |
 | Gives **step-by-step math solutions**                         | ⚠️ Not always consistent | ✅ Designed specifically for that  |
-| Translates both question & answer into your original language | ❌                        | ✅                                 |
+| Translates answer into your original question language | ❌                        | ✅                                 |
 | Feynman-style explanation using **Indian examples**           | ❌                        | ✅                                 |
 | Requires good prompt skills                                   | ✅                        | ❌ Just type or upload — that’s it |
 | Fully localizable and student-friendly                        | ❌                        | ✅ Built for regional learners     |
