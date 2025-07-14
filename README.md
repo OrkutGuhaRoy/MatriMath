@@ -44,6 +44,21 @@ Just like your mother patiently teaches you in your mother tongue, MatriMath hel
 
 ---
 
+🤖 Why Not Just Use ChatGPT?
+Great question! Here's what MatriMath offers that most commonly used LLMs alone doesn't:
+| Feature                                                       | LLM Models                  | MatriMath                         |
+| ------------------------------------------------------------- | ------------------------ | --------------------------------- |
+| Accepts questions in regional languages                       | ✅                        | ✅                                 |
+| Gives **step-by-step math solutions**                         | ⚠️ Not always consistent | ✅ Designed specifically for that  |
+| Translates both question & answer into your original language | ❌                        | ✅                                 |
+| Feynman-style explanation using **Indian examples**           | ❌                        | ✅                                 |
+| Requires good prompt skills                                   | ✅                        | ❌ Just type or upload — that’s it |
+| Fully localizable and student-friendly                        | ❌                        | ✅ Built for regional learners     |
+
+
+
+---
+
 ## 🖥️ Tech Stack
 
 * 🧠 [Gemini 2.5 Pro]((https://ai.google.dev/gemini-api/docs/models#gemini-2.5-pro))
