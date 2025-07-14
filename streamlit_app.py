@@ -18,8 +18,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 3. If the question is a valid math/reasoning/logical problem:
    - Translate it into English.
    - Solve it step-by-step using clear reasoning.
-   - Put the final answer inside \boxed{{}}.
-.
+   - Provide the final answer wrapped in \\boxed{}.
 4. If it is NOT a valid math question, return this JSON:
 {
   "status": "error",
@@ -29,7 +28,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 {
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \boxed{{}}>",
+  "solution": "<Step-by-step solution with answer in \\boxed{}>",
   "translated_question": "<MathQuestion in English>"
 }
 """
@@ -45,15 +44,14 @@ You are a math tutor. Follow these instructions:
 2. If it's a math/reasoning/logical question:
    - Translate to English.
    - Solve it step-by-step clearly.
-   - Put the final answer inside \boxed{{}}.
-.
+   - Put the final answer inside \boxed{}.
 3. If not valid, respond:
 {{"status": "error", "reason": "Not a math problem."}}
 4. If valid, respond:
 {{
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \boxed{{}}>",
+  "solution": "<Step-by-step solution with answer in \\boxed{}>",
   "translated_question": "<MathQuestion in English>"
 }}
 
@@ -69,7 +67,7 @@ Input:
 # Streamlit UI
 # ------------------------------
 st.set_page_config(page_title="MatriMath - AI Math Assistant", layout="centered", page_icon="📐")
-st.title("🧠 MatriMath: Multilingual Math Assistant (Gemini-only)")
+st.title("🧠 MatriMath: Multilingual Math Assistant Powered by Gemini 2.5 Pro")
 
 uploaded_file = st.file_uploader("📸 Upload an image with a math problem (handwritten or printed)", type=["jpg", "jpeg", "png"])
 user_text = st.text_area("📝 Or type your math question:", "")
@@ -95,8 +93,17 @@ if st.button("🚀 Solve It"):
             st.markdown("### 📘 Translated Math Question (English):")
             st.info(result_json["translated_question"])
 
-            st.markdown("### 🧾 Step-by-step Solution:")
-            st.success(result_json["solution"])
+            with st.spinner("🌐 Translating solution back to original language..."):
+                back_prompt = f"Translate the following step-by-step math solution into {result_json['original_language']}:\n\n{result_json['solution']}"
+                translated_solution = client.models.generate_content(
+                    model="gemini-2.5-pro", contents=back_prompt
+                ).text
+
+            st.markdown("### 🌍 Solution in Your Language:")
+            st.success(translated_solution)
+
+            st.markdown("### 🧾 English Step-by-step Solution:")
+            st.info(result_json["solution"])
 
     except Exception as e:
         st.error(f"⚠️ Failed to parse Gemini response.\n{e}")
