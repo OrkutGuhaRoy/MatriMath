@@ -100,9 +100,9 @@ if st.button("🚀 Solve It"):
             st.info(result_json["translated_question"])
 
             with st.spinner("🌐 Translating solution back to original language..."):
-                back_prompt = f"Translate the following step-by-step math solution into {result_json['original_language']}:
+                back_prompt = f"""Translate the following step-by-step math solution into {result_json['original_language']}:
 
-{result_json['solution']}"
+{result_json['solution']}"""
                 translated_solution = client.models.generate_content(
                     model="gemini-2.5-flash", contents=back_prompt
                 ).text
