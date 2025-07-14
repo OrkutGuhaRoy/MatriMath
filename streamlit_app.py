@@ -90,25 +90,29 @@ def run_deepseek(prompt):
     tokenizer, model = load_phi()
     messages = [{"role": "user", "content": prompt}]
     
-    input_text = tokenizer.apply_chat_template(
+    # Step 1: Get the full prompt as a string using chat template
+    prompt_text = tokenizer.apply_chat_template(
         messages,
         add_generation_prompt=True,
-        return_dict=False,  # 👈 return plain string for manual tokenization
+        return_dict=False  # returns a string
     )
     
+    # Step 2: Tokenize the string
     inputs = tokenizer(
-        input_text,
+        prompt_text,
         return_tensors="pt"
-    ).to(model.device)  # ✅ this is now a tensor dictionary on correct device
-
-    outputs = model.generate(
-        **inputs,
-        max_new_tokens=1024,
-        temperature=0.6,
-        top_p=0.95,
-        do_sample=True,
     )
 
+    # Step 3: Move to the model's device (e.g., cuda or cpu)
+    inputs = {k: v.to(model.device) for k, v in inputs.items()}
+
+    # Step 4: Generate the output
+    outputs = model.generate(
+        **inputs,
+        max_new_tokens=1024
+    )
+
+    # Step 5: Decode the output
     decoded = tokenizer.batch_decode(outputs[:, inputs["input_ids"].shape[-1]:])
     return decoded[0]
 
