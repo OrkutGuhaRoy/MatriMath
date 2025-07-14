@@ -17,9 +17,11 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
 2. Detect the language.
 3. If the question is a valid math/reasoning/logical problem:
    - Translate it into English.
-   - Solve it step-by-step using clear reasoning.
+   - Solve it step-by-step.
+   - Your explanation must contain:
+     a) A simple, Feynman-style explanation using relatable, real-world analogies or examples in an Indian/Indic setting.
+     b) A technical breakdown that includes necessary mathematical concepts and formulas.
    - Clearly mark the final answer as: Final Answer: <your answer>
-Only respond in valid JSON as instructed. Do NOT add any extra explanation or markdown.
 4. If it is NOT a valid math question, return this JSON:
 {
   "status": "error",
@@ -29,12 +31,12 @@ Only respond in valid JSON as instructed. Do NOT add any extra explanation or ma
 {
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \\boxed{{}}>",
+  "solution": "<Step-by-step solution with Final Answer>",
   "translated_question": "<MathQuestion in English>"
 }
 """
         response = client.models.generate_content(
-            model="gemini-2.5-flash", contents=[prompt, input_data]
+            model="gemini-2.5-pro", contents=[prompt, input_data]
         )
         return response
 
@@ -44,18 +46,20 @@ You are a math tutor. Follow these instructions:
 1. Detect the language of this input.
 2. If it's a math/reasoning/logical question:
    - Translate to English.
-   - Solve it step-by-step clearly.
-   -Clearly mark the final answer as: Final Answer: <your answer>
+   - Solve it step-by-step.
+   - Your explanation must contain:
+     a) A simple, Feynman-style explanation using relatable, real-world analogies or examples in an Indian/Indic setting.
+     b) A technical breakdown that includes necessary mathematical concepts and formulas.
+   - Clearly mark the final answer as: Final Answer: <your answer>
 3. If not valid, respond:
-{{"status": "error", "reason": "Not a math problem."}}
+{"status": "error", "reason": "Not a math problem."}
 4. If valid, respond:
-{{
+{
   "status": "ok",
   "original_language": "<language>",
-  "solution": "<Step-by-step solution with answer in \\boxed{{}}>",
+  "solution": "<Step-by-step solution with Final Answer>",
   "translated_question": "<MathQuestion in English>"
-}}
-Only respond in valid JSON as instructed. Do NOT add any extra explanation or markdown.
+}
 
 Input:
 {input_data}
@@ -69,7 +73,7 @@ Input:
 # Streamlit UI
 # ------------------------------
 st.set_page_config(page_title="MatriMath - AI Math Assistant", layout="centered", page_icon="📐")
-st.title("🧠 MatriMath: Multilingual Math Assistant Powered by Gemini 2.5 Pro")
+st.title("🧠 MatriMath: Multilingual Math Assistant (Gemini-only)")
 
 uploaded_file = st.file_uploader("📸 Upload an image with a math problem (handwritten or printed)", type=["jpg", "jpeg", "png"])
 user_text = st.text_area("📝 Or type your math question:", "")
@@ -96,9 +100,11 @@ if st.button("🚀 Solve It"):
             st.info(result_json["translated_question"])
 
             with st.spinner("🌐 Translating solution back to original language..."):
-                back_prompt = f"Translate the following step-by-step math solution into {result_json['original_language']}:\n\n{result_json['solution']}"
+                back_prompt = f"Translate the following step-by-step math solution into {result_json['original_language']}:
+
+{result_json['solution']}"
                 translated_solution = client.models.generate_content(
-                    model="gemini-2.5-pro", contents=back_prompt
+                    model="gemini-2.5-flash", contents=back_prompt
                 ).text
 
             st.markdown("### 🌍 Solution in Your Language:")
