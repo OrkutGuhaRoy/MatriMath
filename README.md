@@ -1,6 +1,10 @@
 
 # 🧠 MatriMath – Multilingual Math Assistant
 
+
+🎯 Try it live -> [matrimath.streamlit.app](https://matrimath.streamlit.app/)
+
+
 ![Banner](https://img.shields.io/badge/Gemini%202.5%20Pro-Google-brightgreen) ![Streamlit](https://img.shields.io/badge/Built%20with-Streamlit-orange) ![Status](https://img.shields.io/badge/Status-Experimental-yellow)
 
 MatriMath is a multilingual AI math assistant built using **Google Gemini 2.5 Pro** that allows users to input math or reasoning problems in **any language** — and receive:
