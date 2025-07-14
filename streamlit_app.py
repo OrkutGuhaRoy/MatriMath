@@ -41,7 +41,7 @@ You are a math tutor. Given an image that contains a math problem (printed or ha
         return response
 
     elif input_type == "text":
-        prompt = """
+        prompt = f"""
 You are a math tutor. Follow these instructions:
 1. Detect the language of this input.
 2. If it's a math/reasoning/logical question:
@@ -52,14 +52,14 @@ You are a math tutor. Follow these instructions:
      b) A technical breakdown that includes necessary mathematical concepts and formulas.
    - Clearly mark the final answer as: Final Answer: <your answer>
 3. If not valid, respond:
-{"status": "error", "reason": "Not a math problem."}
+{{"status": "error", "reason": "Not a math problem."}}
 4. If valid, respond:
-{
+{{
   "status": "ok",
   "original_language": "<language>",
   "solution": "<Step-by-step solution with Final Answer>",
   "translated_question": "<MathQuestion in English>"
-}
+}}
 
 Input:
 {input_data}
